@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/lray.dir/Vector.cpp.o CMakeFiles/lray.dir/Raytracer.cpp.o  -o lray 

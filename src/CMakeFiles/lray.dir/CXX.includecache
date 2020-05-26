@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/thomas/Documents/github/Raytracer/projet/src/Raytracer.cpp
+opencv2/core/core.hpp
+-
+opencv2/imgproc/imgproc.hpp
+-
+opencv2/highgui/highgui.hpp
+-
+stdio.h
+-
+vector
+-
+Vector.h
+/home/thomas/Documents/github/Raytracer/projet/src/Vector.h
+iostream
+-
+
+/home/thomas/Documents/github/Raytracer/projet/src/Vector.h
+math.h
+-
+vector
+-
+iostream
+-
+memory
+-
+
