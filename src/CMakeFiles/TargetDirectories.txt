@@ -1,3 +1,0 @@
-/home/thomas/Documents/github/Raytracer/src/CMakeFiles/rebuild_cache.dir
-/home/thomas/Documents/github/Raytracer/src/CMakeFiles/lray.dir
-/home/thomas/Documents/github/Raytracer/src/CMakeFiles/edit_cache.dir
