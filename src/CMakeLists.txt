@@ -16,6 +16,6 @@ SET(SRCS
   Vector.cpp
   Raytracer.cpp
   )
-
+  
 add_executable(lray ${SRCS})
 target_link_libraries(lray "-ljsoncpp" )
