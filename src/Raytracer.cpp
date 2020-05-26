@@ -7,6 +7,7 @@
 #include <fstream>
 #include <iostream>
 
+#include <string.h>
 #include <stdio.h>
 #include <vector>
 #include "Vector.h"
@@ -31,6 +32,26 @@ void save_img(const char* filename, const unsigned char* pixels, int W, int H){
    
 
 
+}
+
+bool parseCommandLine(int argc, char** argv, int &level, char* fileIn, char* fileOut){
+    if(argc != 7){
+        return false;
+    }
+ 
+
+    for(int i = 1; (i+1) < argc; i+= 2){
+        if(0 == strcmp("-i", argv[i])){
+            strcpy(fileIn, argv[i+1]);
+        }
+         else if(0 == strcmp("-n", argv[i])){
+            level = atoi(argv[i+1]);
+
+        } else if(0 == strcmp("-o", argv[i])){
+             strcpy(fileOut, argv[i+1]);
+        }
+    }
+    return true;
 }
 
 void parseFile(const char* filename, Scene &scene, Vector &position_l, double &intensite_l ){
@@ -72,53 +93,35 @@ void parseFile(const char* filename, Scene &scene, Vector &position_l, double &i
 
 int main(int argc, char* argv[]){
 
-    if(argc < 2){
-        cout << "Pas le bon nombre d'arguments" << endl;
+    int level = 1;
+    char fileIn[20];
+    char fileOut[20];
+    if(! parseCommandLine(argc, argv, level,fileIn, fileOut)){
         return -1;
     }
-
-    for(int i = 0; i < argc; i++){
-        std::cout << i << " " << argv[i] << std::endl;
-    }
-    /*
-
-    std::ifstream ifs("scene.json");
-    Json::Reader reader;
-    Json::Value obj;
-    reader.parse(ifs, obj); // reader can also read strings
-
-    const Json::Value& spheres = obj["spheres"]; // array of characters
-    for (int i = 0; i < spheres.size(); i++){
-        cout << "    axeX: " << spheres[i]["axeX"].asInt();
-        cout << " rayon: " << spheres[i]["rayon"].asInt();
-        cout << endl;
-    }
-    */
- 
-
     
-
     int W = 1024; 
     int H = 1024; 
     double fov = 60 * M_PI / 180;
     Scene s; 
-   /* s.addSphere(Vector(30,30,-1), 21, Vector(1, 0, 0)); //boule rouge
-    s.addSphere(Vector(1,5,-70), 30, Vector(1, 1, 0)); // boule jaune
-    s.addSphere(Vector(0,-2000 -20, 0), 2000, Vector(1, 1, 1)); // sol
-    s.addSphere(Vector(0,2000 + 100,0), 2000, Vector(1, 1, 1)); // plafond
-    s.addSphere(Vector(-100 - 50,0,0), 100, Vector(0, 1, 0)); //mur droit
-    s.addSphere(Vector(2000 + 50,0,0), 2000, Vector(0, 0, 1)); // mur gauche
-    s.addSphere(Vector(0,0,-100 - 50), 100, Vector(0, 1, 1));
-    
-    s.addRect(0, 0, 30, 30, -30, Vector(0, 1, 0));
 
-    Vector position_lumiere(15, 70, 30);   
-    double intensite_lumiere = 1500000;
-*/
     Vector position_lumiere;
     double intensite_lumiere;
-    parseFile(argv[1], s, position_lumiere, intensite_lumiere);
-    cout << "nbforme " << s.shapes.size() << endl;
+    parseFile(fileIn, s, position_lumiere, intensite_lumiere);
+
+    
+
+// diffenrent en fonction level
+    switch (level)
+    {
+    case 2 :
+        /* level2(H, w, SCENE, fileOUT, position_l, intensite_l, ) */
+        break;
+    
+    default:
+        break;
+    }
+    
     std::vector<unsigned char> image(W*H *3);
 
     for (int i =0; i < H; i++) {
@@ -129,9 +132,9 @@ int main(int argc, char* argv[]){
 
             Ray r(Vector(0,0,80), direction);
             Vector P, N;
-           int shape_id;
+            int shape_id;
          //  std::cout << "test intersection: " << i << "," << j << "\n" << std::endl;
-           bool has_inter = s.intersection(r,P,N,shape_id);
+            bool has_inter = s.intersection(r,P,N,shape_id);
           // std::cout << "test intersection: " << i << "," << j << "\n" << std::endl;
 
             Vector intensite_pixel(0,0,0);
@@ -146,7 +149,7 @@ int main(int argc, char* argv[]){
     
     }
 
-    save_img("out.ppm" , &image[0], W, H);
+    save_img(fileOut , &image[0], W, H);
 
     
     return 0;
