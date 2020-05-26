@@ -1,0 +1,78 @@
+{
+    "spheres": [
+        {
+            "axeX": 30,
+            "axeY": 30,
+            "axeZ": -1,
+            "rayon": 21,
+            "couleur": [1, 0, 0]
+        },
+        {
+            "axeX": 1,
+            "axeY": 5,
+            "axeZ": -70,
+            "rayon": 30,
+            "couleur": [1, 1, 0]
+        }, 
+        {
+            "axeX": 0,
+            "axeY": -2020,
+            "axeZ": 0,
+            "rayon": 2000,
+            "couleur": [1, 1, 1]
+
+        },
+        {
+            "axeX": 0,
+            "axeY": 2100,
+            "axeZ": 0,
+            "rayon": 2000,
+            "couleur": [1, 1, 1]
+        },
+        {
+            "axeX": -150,
+            "axeY": 0,
+            "axeZ": 0,
+            "rayon": 100,
+            "couleur": [0, 1, 0]
+        },
+        {
+            "axeX": 2050,
+            "axeY": 0,
+            "axeZ": 0,
+            "rayon": 2000,
+            "couleur": [0, 0, 1]
+        },
+        {
+            "axeX": 0,
+            "axeY": 0,
+            "axeZ": -150,
+            "rayon": 100,
+            "couleur": [0, 1, 1]
+        }
+    ],
+
+    "rectangles": [{
+        "axeX": 0,
+        "axeY": 0,
+        "width": 30,
+        "height" : 30,
+        "axeZ": -30,
+        "couleur": [0, 1, 0]
+    }],
+
+    "triangles": [{
+
+    }],
+
+    "cylindres": [{
+
+    }],
+
+    "lumiere": {
+        "intensite": 1500000,
+        "x": 15,
+        "y": 70,
+        "z": 30
+    }
+}

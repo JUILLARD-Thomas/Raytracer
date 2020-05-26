@@ -63,10 +63,10 @@ RM = /snap/cmake/340/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/thomas/Documents/github/Raytracer/projet/src
+CMAKE_SOURCE_DIR = /home/thomas/Documents/github/Raytracer/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/thomas/Documents/github/Raytracer/projet/src
+CMAKE_BINARY_DIR = /home/thomas/Documents/github/Raytracer/src
 
 # Include any dependencies generated for this target.
 include CMakeFiles/lray.dir/depend.make
@@ -79,29 +79,29 @@ include CMakeFiles/lray.dir/flags.make
 
 CMakeFiles/lray.dir/Vector.cpp.o: CMakeFiles/lray.dir/flags.make
 CMakeFiles/lray.dir/Vector.cpp.o: Vector.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/thomas/Documents/github/Raytracer/projet/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/lray.dir/Vector.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lray.dir/Vector.cpp.o -c /home/thomas/Documents/github/Raytracer/projet/src/Vector.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/thomas/Documents/github/Raytracer/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/lray.dir/Vector.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lray.dir/Vector.cpp.o -c /home/thomas/Documents/github/Raytracer/src/Vector.cpp
 
 CMakeFiles/lray.dir/Vector.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lray.dir/Vector.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/thomas/Documents/github/Raytracer/projet/src/Vector.cpp > CMakeFiles/lray.dir/Vector.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/thomas/Documents/github/Raytracer/src/Vector.cpp > CMakeFiles/lray.dir/Vector.cpp.i
 
 CMakeFiles/lray.dir/Vector.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lray.dir/Vector.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/thomas/Documents/github/Raytracer/projet/src/Vector.cpp -o CMakeFiles/lray.dir/Vector.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/thomas/Documents/github/Raytracer/src/Vector.cpp -o CMakeFiles/lray.dir/Vector.cpp.s
 
 CMakeFiles/lray.dir/Raytracer.cpp.o: CMakeFiles/lray.dir/flags.make
 CMakeFiles/lray.dir/Raytracer.cpp.o: Raytracer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/thomas/Documents/github/Raytracer/projet/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/lray.dir/Raytracer.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lray.dir/Raytracer.cpp.o -c /home/thomas/Documents/github/Raytracer/projet/src/Raytracer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/thomas/Documents/github/Raytracer/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/lray.dir/Raytracer.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lray.dir/Raytracer.cpp.o -c /home/thomas/Documents/github/Raytracer/src/Raytracer.cpp
 
 CMakeFiles/lray.dir/Raytracer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lray.dir/Raytracer.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/thomas/Documents/github/Raytracer/projet/src/Raytracer.cpp > CMakeFiles/lray.dir/Raytracer.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/thomas/Documents/github/Raytracer/src/Raytracer.cpp > CMakeFiles/lray.dir/Raytracer.cpp.i
 
 CMakeFiles/lray.dir/Raytracer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lray.dir/Raytracer.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/thomas/Documents/github/Raytracer/projet/src/Raytracer.cpp -o CMakeFiles/lray.dir/Raytracer.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/thomas/Documents/github/Raytracer/src/Raytracer.cpp -o CMakeFiles/lray.dir/Raytracer.cpp.s
 
 # Object files for target lray
 lray_OBJECTS = \
@@ -115,7 +115,7 @@ lray: CMakeFiles/lray.dir/Vector.cpp.o
 lray: CMakeFiles/lray.dir/Raytracer.cpp.o
 lray: CMakeFiles/lray.dir/build.make
 lray: CMakeFiles/lray.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/thomas/Documents/github/Raytracer/projet/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable lray"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/thomas/Documents/github/Raytracer/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable lray"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/lray.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -128,6 +128,6 @@ CMakeFiles/lray.dir/clean:
 .PHONY : CMakeFiles/lray.dir/clean
 
 CMakeFiles/lray.dir/depend:
-	cd /home/thomas/Documents/github/Raytracer/projet/src && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/thomas/Documents/github/Raytracer/projet/src /home/thomas/Documents/github/Raytracer/projet/src /home/thomas/Documents/github/Raytracer/projet/src /home/thomas/Documents/github/Raytracer/projet/src /home/thomas/Documents/github/Raytracer/projet/src/CMakeFiles/lray.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/thomas/Documents/github/Raytracer/src && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/thomas/Documents/github/Raytracer/src /home/thomas/Documents/github/Raytracer/src /home/thomas/Documents/github/Raytracer/src /home/thomas/Documents/github/Raytracer/src /home/thomas/Documents/github/Raytracer/src/CMakeFiles/lray.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/lray.dir/depend
 

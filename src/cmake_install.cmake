@@ -1,4 +1,4 @@
-# Install script for directory: /home/thomas/Documents/github/Raytracer/projet/src
+# Install script for directory: /home/thomas/Documents/github/Raytracer/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/thomas/Documents/github/Raytracer/projet/src/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/thomas/Documents/github/Raytracer/src/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
