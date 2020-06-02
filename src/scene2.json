@@ -1,0 +1,30 @@
+{
+    "spheres": [
+        {
+            "axeX": 1,
+            "axeY": 5,
+            "axeZ": -70,
+            "rayon": 30,
+            "couleur": [1, 0, 0]
+        }
+    ],
+
+    "rectangles": [{
+      
+    }],
+
+    "triangles": [{
+
+    }],
+
+    "cylindres": [{
+
+    }],
+
+    "lumiere": {
+        "intensite": 1500000,
+        "x": 15,
+        "y": 70,
+        "z": 30
+    }
+}

@@ -18,4 +18,4 @@ SET(SRCS
   )
   
 add_executable(lray ${SRCS})
-target_link_libraries(lray "-ljsoncpp" )
+target_link_libraries(lray "-ljsoncpp -lglut -lGLU -lGL" )

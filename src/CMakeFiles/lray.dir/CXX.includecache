@@ -13,6 +13,8 @@ opencv2/imgproc/imgproc.hpp
 -
 opencv2/highgui/highgui.hpp
 -
+GL/glut.h
+-
 jsoncpp/json/json.h
 -
 fstream
@@ -36,5 +38,7 @@ vector
 iostream
 -
 memory
+-
+algorithm
 -
 

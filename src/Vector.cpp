@@ -24,6 +24,10 @@ Vector operator/(const Vector& a, double b) {
     return Vector(a[0]/b, a[1]/b, a[2]/b);
 }
 
+Vector cross(const Vector&a ,const Vector& b){
+    return Vector(a[1]* b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]);
+}
+
 double dot(const Vector&a, const Vector& b) {
     return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 }
