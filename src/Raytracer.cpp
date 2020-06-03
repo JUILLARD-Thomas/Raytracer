@@ -111,7 +111,9 @@ void parseFile(const char* filename, Scene &scene){
         Vector axe(Vector(spheres[i]["axeX"].asInt(), spheres[i]["axeY"].asInt(), spheres[i]["axeZ"].asInt()));
         int rayon =  spheres[i]["rayon"].asInt();
         Vector couleur(spheres[i]["couleur"][0].asInt(), spheres[i]["couleur"][1].asInt(), spheres[i]["couleur"][2].asInt());
-        scene.addSphere(axe, rayon, (i == 0) ? true : false, couleur);
+        bool mirror = spheres[i]["mirror"].asBool();
+        bool transp = spheres[i]["transp"].asBool();
+        scene.addSphere(axe, rayon, (i == 0) ? true : false, couleur, mirror, transp);
     }
     for(int i = 0; i < rectangles.size(); i++){
         
@@ -120,8 +122,10 @@ void parseFile(const char* filename, Scene &scene){
         Vector c(rectangles[i]["C"][0].asInt(),rectangles[i]["C"][1].asInt(), rectangles[i]["C"][2].asInt());
         Vector d(rectangles[i]["D"][0].asInt(),rectangles[i]["D"][1].asInt(), rectangles[i]["D"][2].asInt());
         Vector couleur(rectangles[i]["couleur"][0].asInt(), rectangles[i]["couleur"][1].asInt(), rectangles[i]["couleur"][2].asInt());
+        bool mirror = rectangles[i]["mirror"].asBool();
+        bool transp = rectangles[i]["transp"].asBool();
     
-        scene.addRect(a,b,c,d, false,couleur);
+        scene.addRect(a,b,c,d, false,couleur, mirror, transp);
     }
 
     for(int i = 0; i < triangles.size(); i++){
@@ -129,8 +133,10 @@ void parseFile(const char* filename, Scene &scene){
         Vector y(triangles[i]["y"][0].asInt(), triangles[i]["y"][1].asInt(), triangles[i]["y"][2].asInt());
         Vector z(triangles[i]["z"][0].asInt(), triangles[i]["z"][1].asInt(), triangles[i]["z"][2].asInt());
         Vector couleur(triangles[i]["couleur"][0].asInt(), triangles[i]["couleur"][1].asInt(), triangles[i]["couleur"][2].asInt());
+        bool mirror = triangles[i]["mirror"].asBool();
+        bool transp = triangles[i]["transp"].asBool();
     
-        scene.addTriangle(x,y,z,false, couleur);
+        scene.addTriangle(x,y,z,false, couleur, mirror, transp);
     }
 
     for (int i = 0; i < cylindres.size(); i++){
@@ -139,6 +145,8 @@ void parseFile(const char* filename, Scene &scene){
         double rayon = cylindres[i]["rayon"].asDouble();
         Vector vectV(cylindres[i]["V"][0].asInt(),cylindres[i]["V"][1].asInt(),cylindres[i]["V"][2].asInt());
         double hauteur = cylindres[i]["hauteur"].asDouble();
+        bool mirror = cylindres[i]["mirror"].asBool();
+        bool transp = cylindres[i]["transp"].asBool();
         
         Vector couleur(cylindres[i]["couleur"][0].asInt(),cylindres[i]["couleur"][1].asInt(),cylindres[i]["couleur"][2].asInt());
          cout << "A: " << pointA[0] << " " << pointA[1] << " " << pointA[2] << endl;
@@ -146,7 +154,7 @@ void parseFile(const char* filename, Scene &scene){
          cout << "couleur: " << couleur[0] << " " << couleur[1] << " " << couleur[2] << endl;
          cout << "h: " << hauteur << endl;
          cout << "r: " << rayon << endl;
-        scene.addCylindre(pointA, rayon, vectV, hauteur, false, couleur);
+        scene.addCylindre(pointA, rayon, vectV, hauteur, false, couleur, mirror, transp);
 
     }
     s.intensite_lumiere = obj["lumiere"]["intensite"].asDouble();
