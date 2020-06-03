@@ -5,6 +5,7 @@
         "axeZ": -2100,
         "rayon": 2000,
         "couleur": [1, 1, 1],
+        "mirror": false,
         "transp": true
     }],
 
@@ -18,7 +19,8 @@
         "V": [1,1,0],
         "hauteur": 70, 
         "couleur": [1,0,1],
-        "transp": false
+        "transp": false,
+        "mirror": true
 
     }],
 
