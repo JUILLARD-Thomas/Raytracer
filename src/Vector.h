@@ -78,7 +78,7 @@ class Shape {
 class Sphere : public Shape {
     public:
 
-    Sphere(const Vector &origin, double rayon, bool isMirror, bool isTransp const Vector &couleur): O(origin), R(rayon), Shape(couleur, isTransp, isMirror) {
+    Sphere(const Vector &origin, double rayon, bool isMirror, bool isTransp, const Vector &couleur): O(origin), R(rayon), Shape(couleur, isTransp, isMirror) {
     };
 
     bool intersection(const Ray d , Vector& P, Vector& N, double &t) {
@@ -233,9 +233,7 @@ class Cylindre : public Shape {
         } else{
             P = P1;
         }
-       // P = ((P1 - d.origin).getNorm2() < (P2 - d.origin).getNorm2()) ? P1 : P2;
-      //  std::cout << "intersection " << t <<  std::endl;
-   //   P[2] = -P[2]; 
+
         Vector CP = P - C;
         double CQ = dot(CP, V);
         Vector QP = CP - CQ * V;
@@ -269,9 +267,9 @@ class Scene {
 
         void addRect(const Vector& A, const Vector& B, const Vector& C,const Vector& D, bool isMirror, bool isTransp, const Vector &couleur) { shapes.push_back(std::unique_ptr<Shape>(new Rectangle(A, B, C, D, isMirror, isTransp, couleur))); }
         
-        void addTriangle(const Vector& A, const Vector& B, const Vector& C, bool isMirror, bool isTransp, const Vector &couleur){(shapes.push_back(std::unique_ptr<Shape>(new Triangle(A, B, C, couleur, isMirror, isTransp)))); }
+        void addTriangle(const Vector& A, const Vector& B, const Vector& C, bool isMirror, bool isTransp, const Vector &couleur){shapes.push_back(std::unique_ptr<Shape>(new Triangle(A, B, C, isMirror, isTransp, couleur))); }
 
-        void addCylindre(const Vector& A, double r, const Vector& V, double h,  bool isMirror, bool isTransp, const Vector &couleur){shapes.push_back(std::unique_ptr<Shape>(new Cylindre(A,r,V,h, isMirror, isTransp couleur)));}
+        void addCylindre(const Vector& A, double r, const Vector& V, double h,  bool isMirror, bool isTransp, const Vector &couleur){/*shapes.push_back(std::unique_ptr<Shape>(new Cylindre(A,r,V,h, isMirror, isTransp couleur)));*/}
         
         bool intersection(const Ray d , Vector& P, Vector& N, int &shape_id, double &min_t) const {
 
