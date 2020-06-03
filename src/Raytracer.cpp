@@ -26,7 +26,7 @@ char fileIn[150];
 char fileOut[150];
 double fov = 60 * M_PI / 180;
 Scene s;
-Vector camPosition(0,0,80);
+Vector camPosition(0,0,0);
 Vector camDirect(0,0,0);
 
 
@@ -107,13 +107,13 @@ void parseFile(const char* filename, Scene &scene){
     cout << "nbTRITRI ->" << triangles.size() << endl;
 
     for (int i = 0; i < spheres.size(); i++){
-        bool mirror = (i == 0) ? true : false;
+     //   bool mirror = (i == 0) ? true : false;
         Vector axe(Vector(spheres[i]["axeX"].asInt(), spheres[i]["axeY"].asInt(), spheres[i]["axeZ"].asInt()));
         int rayon =  spheres[i]["rayon"].asInt();
         Vector couleur(spheres[i]["couleur"][0].asInt(), spheres[i]["couleur"][1].asInt(), spheres[i]["couleur"][2].asInt());
         bool mirror = spheres[i]["mirror"].asBool();
         bool transp = spheres[i]["transp"].asBool();
-        scene.addSphere(axe, rayon, (i == 0) ? true : false, mirror, transp,couleur);
+        scene.addSphere(axe, rayon, mirror, transp, couleur);
     }
     for(int i = 0; i < rectangles.size(); i++){
         
@@ -125,7 +125,7 @@ void parseFile(const char* filename, Scene &scene){
         bool mirror = rectangles[i]["mirror"].asBool();
         bool transp = rectangles[i]["transp"].asBool();
     
-        scene.addRect(a,b,c,d, false,couleur, mirror, transp,couleur);
+        scene.addRect(a,b,c,d, mirror, transp,couleur);
     }
 
     for(int i = 0; i < triangles.size(); i++){
@@ -136,7 +136,7 @@ void parseFile(const char* filename, Scene &scene){
         bool mirror = triangles[i]["mirror"].asBool();
         bool transp = triangles[i]["transp"].asBool();
     
-        scene.addTriangle(x,y,z,false, couleur, mirror, transp,couleur);
+        scene.addTriangle(x,y,z,mirror, transp,couleur);
     }
 
     for (int i = 0; i < cylindres.size(); i++){
@@ -154,7 +154,7 @@ void parseFile(const char* filename, Scene &scene){
          cout << "couleur: " << couleur[0] << " " << couleur[1] << " " << couleur[2] << endl;
          cout << "h: " << hauteur << endl;
          cout << "r: " << rayon << endl;
-        scene.addCylindre(pointA, rayon, vectV, hauteur, false, couleur, mirror, transp,couleur);
+        scene.addCylindre(pointA, rayon, vectV, hauteur, mirror, transp,couleur);
 
     }
     s.intensite_lumiere = obj["lumiere"]["intensite"].asDouble();
@@ -173,7 +173,7 @@ Vector getColor(const Ray &r, Scene &s, int nb_rebonds){
         return Vector(0,0,0);
     }
 
-    Vector P, N;
+     Vector P, N;
     int shape_id;
     double t;
     bool has_inter = s.intersection(r,P,N,shape_id, t);
@@ -181,10 +181,10 @@ Vector getColor(const Ray &r, Scene &s, int nb_rebonds){
     Vector intensite_pixel(0,0,0);
     if (has_inter) {
          if(s.shapes[shape_id]->isMirror){
-           // cout << "mirror" << endl;
             Vector direction_mirror = r.direction - 2 * dot(N, r.direction) * N;
             Ray rayon_mirror(P + 0.001*N, direction_mirror);
             intensite_pixel = getColor(rayon_mirror, s, nb_rebonds - 1);
+
         } else if(s.shapes[shape_id]->isTransp){
             double n1 = 1;
             double n2 = 1.3;
@@ -192,16 +192,17 @@ Vector getColor(const Ray &r, Scene &s, int nb_rebonds){
             if(dot(r.direction, N) > 0){
                 n1 = 1.3;
                 n2 = 1;
+             //   normTransp = Vector(0,0,0) - N;
             }
             double radical = 1 - sqrt(n1 / n2) * (1 - sqrt(dot(normTransp, r.direction)));
             if(radical > 0){
                 Vector direction_refracte = (n1 / n2) * (r.direction - dot(r.direction, normTransp) * normTransp) - normTransp * sqrt(radical);
-                Ray rayon_refract(P + 0.001*N, direction_refracte);
+                Ray rayon_refract(P + 0.001*normTransp, direction_refracte);
 
                 intensite_pixel = getColor(rayon_refract, s, nb_rebonds - 1);
             }
-            
-        } else{
+
+        }else{
             Ray ray_light(P + 0.01 * N, (s.position_lumiere - P).getNormalized());
             Vector P_light,N_light;
 
@@ -209,15 +210,13 @@ Vector getColor(const Ray &r, Scene &s, int nb_rebonds){
             double t_light;
             bool has_inter_light = s.intersection(ray_light, P_light, N_light, sphere_id_light, t_light);
             double d_light2 = (s.position_lumiere - P ).getNorm2();
-            if (has_inter_light && t_light * t_light < d_light2){
+            if (has_inter_light && (t_light * t_light) < d_light2){
                 intensite_pixel = Vector(0,0,0);
             }
             else{
                 intensite_pixel = s.shapes[shape_id]-> albedo * s.intensite_lumiere * std::max(0., dot((s.position_lumiere-P).getNormalized(), N)) /d_light2;
             }
         }
-        
-        
     }
     return intensite_pixel;
 /*

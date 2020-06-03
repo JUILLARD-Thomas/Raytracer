@@ -5,21 +5,27 @@
             "axeY": 30,
             "axeZ": -1,
             "rayon": 21,
-            "couleur": [1, 1, 0]
+            "couleur": [1, 1, 0],
+            "mirror" : true,
+            "transp" : false
         },
         {
             "axeX": 1,
             "axeY": 5,
-            "axeZ": -70,
-            "rayon": 30,
-            "couleur": [1, 0, 0]
+            "axeZ": -30,
+            "rayon": 10,
+            "couleur": [1, 0, 0],
+            "mirror" : true,
+            "transp" : false
         }, 
         {
             "axeX": 0,
             "axeY": -2020,
             "axeZ": 0,
             "rayon": 2000,
-            "couleur": [1, 1, 1]
+            "couleur": [1, 1, 1],
+            "mirror" : false,
+            "transp" : false
 
         },
         {
@@ -27,21 +33,27 @@
             "axeY": 2100,
             "axeZ": 0,
             "rayon": 2000,
-            "couleur": [1, 1, 1]
+            "couleur": [1, 1, 1],
+            "mirror" : false,
+            "transp" : false
         },
         {
             "axeX": -150,
             "axeY": 0,
             "axeZ": 0,
             "rayon": 100,
-            "couleur": [0, 1, 0]
+            "couleur": [0, 1, 0],
+            "mirror" : false,
+            "transp" : false
         },
         {
             "axeX": 2050,
             "axeY": 0,
             "axeZ": 0,
             "rayon": 2000,
-            "couleur": [0, 0, 1]
+            "couleur": [0, 0, 1],
+            "mirror" : false,
+            "transp" : false
         },
         {
             "axeX": 0,
@@ -52,26 +64,16 @@
         }
     ],
 
-    "rectangles": [{
-        "A": [10, 20, -70],
-        "B": [20, 10, -70],
-        "C": [10, 30, -70],
-        "D": [20, 30, -70],
-        "couleur": [0, 1, 0]
-    }],
+    "rectangles": [],
 
-    "triangles": [{
+    "triangles": [],
 
-    }],
-
-    "cylindres": [{
-
-    }],
+    "cylindres": [],
 
     "lumiere": {
-        "intensite": 1500000,
-        "x": 15,
-        "y": 70,
-        "z": 30
+        "intensite": 1500000000,
+        "x": 0,
+        "y": 100,
+        "z": -40
     }
 }
