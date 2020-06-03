@@ -65,19 +65,20 @@ class Ray {
 
 class Shape {
     public:
-        Shape(Vector coul, bool trans) : albedo(coul), transp(trans) {};
+        Shape(Vector coul, bool trans, bool isMirror) : albedo(coul), transp(trans), isMirror(isMirror) {};
         virtual bool intersection(const Ray d , Vector& P, Vector& N, double &t) = 0;
         
         
         Vector albedo;
         bool transp;
+        bool isMirror;
 
 };
 
 class Sphere : public Shape {
     public:
 
-    Sphere(const Vector &origin, double rayon, const Vector &couleur): O(origin), R(rayon), Shape(couleur, false) {
+    Sphere(const Vector &origin, double rayon, bool isMirror, const Vector &couleur): O(origin), R(rayon), Shape(couleur, false, isMirror) {
     };
 
     bool intersection(const Ray d , Vector& P, Vector& N, double &t) {
@@ -114,7 +115,7 @@ class Sphere : public Shape {
 
 class Triangle : public Shape {
     public: 
-    Triangle(const Vector& A, const Vector& B, const Vector& C, const Vector &couleur, bool mirror = false, bool transp = false) : A(A), B(B), C(C), Shape(couleur, false){};
+    Triangle(const Vector& A, const Vector& B, const Vector& C, const Vector &couleur, bool isMirror, bool transp = false) : A(A), B(B), C(C), Shape(couleur, false, isMirror){};
 
     bool intersection(const Ray d , Vector& P, Vector& N, double &t) {
         N = cross(B- A, C- A).getNormalized();
@@ -160,7 +161,7 @@ class Triangle : public Shape {
 
 class Rectangle : public Shape {
     public:
-    Rectangle(const Vector& A, const Vector& B, const Vector& C, const Vector& D, const Vector &couleur): A(A), B(B), C(C), D(D), Shape(couleur, false) {
+    Rectangle(const Vector& A, const Vector& B, const Vector& C, const Vector& D, bool isMirror, const Vector &couleur): A(A), B(B), C(C), D(D), Shape(couleur, false, isMirror) {
 
     };
     
@@ -193,7 +194,7 @@ class Rectangle : public Shape {
 
 class Cylindre : public Shape {
     public:
-    Cylindre(const Vector& A, double r, const Vector& V, double h, const Vector &couleur): C(A), r(r), V(V), h(h), Shape(couleur, false) {
+    Cylindre(const Vector& A, double r, const Vector& V, double h, bool isMirror, const Vector &couleur): C(A), r(r), V(V), h(h), Shape(couleur, false, isMirror) {
         Vector v(V[0], V[1], V[2]);
         B = h * v.getNormalized() + A; 
         V2 = Vector(-V[0],-V[1],-V[2]);
@@ -212,7 +213,6 @@ class Cylindre : public Shape {
             if(d2 > (r * r)){
                 return false;
             }
-            std::cout << "GROS CHIEN" << std::endl;
         }
         Vector wn = w.getNormalized();
         double R = abs(dot(L,wn));
@@ -265,18 +265,18 @@ class Cylindre : public Shape {
 class Scene {
     public : 
         Scene() {};
-        void addSphere(const Vector &origin, double rayon, const Vector &couleur) { shapes.push_back(std::unique_ptr<Shape>(new Sphere(origin, rayon, couleur))); }
+        void addSphere(const Vector &origin, double rayon, bool isMirror, const Vector &couleur) { shapes.push_back(std::unique_ptr<Shape>(new Sphere(origin, rayon, isMirror, couleur))); }
 
-        void addRect(const Vector& A, const Vector& B, const Vector& C,const Vector& D, const Vector &couleur) { shapes.push_back(std::unique_ptr<Shape>(new Rectangle(A, B, C, D, couleur))); }
+        void addRect(const Vector& A, const Vector& B, const Vector& C,const Vector& D, bool isMirror, const Vector &couleur) { shapes.push_back(std::unique_ptr<Shape>(new Rectangle(A, B, C, D, isMirror, couleur))); }
         
-        void addTriangle(const Vector& A, const Vector& B, const Vector& C, const Vector &couleur, bool mirror = false, bool transp = false){(shapes.push_back(std::unique_ptr<Shape>(new Triangle(A, B, C, couleur, mirror, transp)))); }
+        void addTriangle(const Vector& A, const Vector& B, const Vector& C, bool isMirror, const Vector &couleur, bool transp = false){(shapes.push_back(std::unique_ptr<Shape>(new Triangle(A, B, C, couleur, isMirror, transp)))); }
 
-        void addCylindre(const Vector& A, double r, const Vector& V, double h, const Vector &couleur){shapes.push_back(std::unique_ptr<Shape>(new Cylindre(A,r,V,h,couleur)));}
+        void addCylindre(const Vector& A, double r, const Vector& V, double h, bool isMirror, const Vector &couleur){shapes.push_back(std::unique_ptr<Shape>(new Cylindre(A,r,V,h, isMirror,couleur)));}
         
-        bool intersection(const Ray d , Vector& P, Vector& N, int &shape_id) {
+        bool intersection(const Ray d , Vector& P, Vector& N, int &shape_id, double &min_t) const {
 
             bool has_inter = false;
-            double min_t = 1E99;
+            min_t = 1E99;
            // std::cout << "lancer d'un rayon:" << std::endl;
 
             for (int i =0; i < shapes.size(); i++) {
@@ -286,22 +286,17 @@ class Scene {
               
 
                if(local_has_inter){
-                   if(i >= 2){
-                   //    std::cout << "POU\nLOU\n\n\nintersecti//tema en bason:  " << i << "\n\n_n" << std::endl;
-                   }
+
                     has_inter =true;
-             //   std::cout << "intersection: " << i << std::endl;
 
                    if(t < min_t) {
-                  //  std::cout << "lMais il faut choisir:" << t << " < " << min_t << std::endl;
 
                        min_t = t;
                        P = localP;
                        N = localN;
                        shape_id = i;
-                   }else{
-                      //  std::cout << "Mais pas ASSEZ fort " << t << " >" << min_t <<  std::endl;
                    }
+
                }
             }
 
@@ -313,4 +308,5 @@ class Scene {
         std::vector<std::unique_ptr<Shape>> shapes;
         Sphere* lumiere;
         double intensite_lumiere;
+        Vector position_lumiere;
 };
