@@ -1,0 +1,102 @@
+{
+    "spheres": [
+        {
+            "axeX": 5,
+            "axeY": 0,
+            "axeZ": -40,
+            "rayon": 25,
+            "couleur": [0, 0, 0]
+        },
+        {
+            "axeX": 5,
+            "axeY": 30,
+            "axeZ": -40,
+            "rayon": 25,
+            "couleur": [0, 0, 0]
+        },
+        {
+            "axeX": 5,
+            "axeY": 0,
+            "axeZ": -30,
+            "rayon": 20,
+            "couleur": [1, 1, 1]
+        },
+        {
+            "axeX": 5,
+            "axeY": 27,
+            "axeZ": -30,
+            "rayon": 20,
+            "couleur": [1, 1, 1]
+        },
+        {
+            "axeX": 5,
+            "axeY": 1,
+            "axeZ": -24,
+            "rayon": 16,
+            "couleur": [0, 0, 0]
+        },
+        {
+            "axeX": 5,
+            "axeY": 26,
+            "axeZ": -24,
+            "rayon": 16,
+            "couleur": [0, 0, 0]
+        },
+        {
+            "axeX": 0,
+            "axeY": -2020,
+            "axeZ": 0,
+            "rayon": 2000,
+            "couleur": [1, 1, 1]
+
+        },
+        {
+            "axeX": 0,
+            "axeY": 2100,
+            "axeZ": 0,
+            "rayon": 2000,
+            "couleur": [1, 1, 1]
+        },
+        {
+            "axeX": -150,
+            "axeY": 0,
+            "axeZ": 0,
+            "rayon": 100,
+            "couleur": [0, 1, 0]
+        },
+        {
+            "axeX": 2050,
+            "axeY": 0,
+            "axeZ": 0,
+            "rayon": 2000,
+            "couleur": [0, 0, 1]
+        },
+        {
+            "axeX": 0,
+            "axeY": 50,
+            "axeZ": -150,
+            "rayon": 100,
+            "couleur": [0, 1, 1]
+        }
+        
+    ],
+
+    "rectangles": [],
+
+    "triangles": [{
+
+    }],
+
+    "cylindres": [],
+
+    "lumiere": {
+        "intensite": 150000000,
+        "x": 0,
+        "y": 30,
+        "z": 30
+    },
+    "camera": {
+        "position" : [0,0,80],
+        "direction" : [0,0,0]
+    }
+}
