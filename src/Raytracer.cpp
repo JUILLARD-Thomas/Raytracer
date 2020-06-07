@@ -101,7 +101,7 @@ bool parseCommandLine(int argc, char** argv, int &level, char* fileIn, char* fil
     return true;
 }
 /* fonction permettant de parser grace aux .json */
-void parseFile(const char* filename, Scene &scene){
+bool parseFile(const char* filename, Scene &scene){
     std::ifstream ifs(filename);
     Json::Reader reader;
     Json::Value obj;
@@ -161,9 +161,9 @@ void parseFile(const char* filename, Scene &scene){
     s.intensite_lumiere = obj["lumiere"]["intensite"].asDouble();
     s.position_lumiere = Vector(obj["lumiere"]["x"].asDouble(), obj["lumiere"]["y"].asDouble(), obj["lumiere"]["z"].asDouble());
     camPosition = Vector(obj["camera"]["position"][0].asDouble(), obj["camera"]["position"][1].asDouble(), obj["camera"]["position"][2].asDouble());
-    camDirect = Vector(obj["camera"]["direction"][0].asDouble(), obj["camera"]["direction"][1].asDouble(), obj["camera"]["direction"][2].asDouble());
+    camDirect = Vector(obj["camera"]["direction"][0].asDouble(), obj["camera"]["direction"][1].asDouble(), obj["camera"]["direction"][2].asDouble());    
     
-    std::cout << "nbforme" << scene.shapes.size() << endl;
+    return 0 != s.shapes.size();
 }
 
 
@@ -237,64 +237,6 @@ Vector getColor(const Ray &r, Scene &s, int nb_rebonds){
     return intensite_pixel;    
 }
 
-/*
-
-Vector getColorReflet(const Ray &r, Scene &s, int nb_rebonds){
-     if(nb_rebonds == 0){
-        return Vector(0,0,0);
-    }
-
-     Vector P, N;
-    int shape_id;
-    double t;
-    bool has_inter = s.intersection(r,P,N,shape_id, t);
-
-    Vector intensite_pixel(0,0,0);
-    if (has_inter) {
-         if(s.shapes[shape_id]->isMirror){
-            Vector direction_mirror = r.direction - 2 * dot(N, r.direction) * N;
-            Ray rayon_mirror(P + 0.001*N, direction_mirror);
-            intensite_pixel = getColorReflet(rayon_mirror, s, nb_rebonds - 1);
-
-        } else if(s.shapes[shape_id]->isTransp){
-            double n1 = 1;
-            double n2 = 1.3;
-            Vector normTransp(N);
-            if(dot(r.direction, N) > 0){
-                n1 = 1.3;
-                n2 = 1;
-             //   normTransp = Vector(0,0,0) - N;
-            }
-            double radical = 1 - sqrt(n1 / n2) * (1 - sqrt(dot(normTransp, r.direction)));
-            if(radical > 0){
-                Vector direction_refracte = (n1 / n2) * (r.direction - dot(r.direction, normTransp) * normTransp) - normTransp * sqrt(radical);
-                Ray rayon_refract(P + 0.001*normTransp, direction_refracte);
-
-                intensite_pixel = getColorReflet(rayon_refract, s, nb_rebonds - 1);
-            }
-
-        }else{
-
-            //contribution eclairage direct
-            Ray ray_light(P + 0.01 * N, (s.position_lumiere - P).getNormalized());
-            Vector P_light,N_light;
-
-            int sphere_id_light;
-            double t_light;
-            bool has_inter_light = s.intersection(ray_light, P_light, N_light, sphere_id_light, t_light);
-            double d_light2 = (s.position_lumiere - P ).getNorm2();
-            if (has_inter_light && (t_light * t_light) < d_light2){
-                intensite_pixel = Vector(0,0,0);
-            }
-            else{
-                intensite_pixel = s.shapes[shape_id]-> albedo / M_PI * s.intensite_lumiere * std::max(0., dot((s.position_lumiere-P).getNormalized(), N)) /d_light2;
-            }
-        }
-    }
-    return intensite_pixel;    
-}
-yes
-*/
 
 void initData(){
     for (int i =0; i < H; i++) {
@@ -306,8 +248,6 @@ void initData(){
         }
     }
 }
-
-
 
 
 /* définir le niveau 1 d'exécution du projet */
@@ -367,12 +307,7 @@ void levelTwo(bool first = false){
             if (has_inter) {
                 intensite_pixel = s.shapes[shape_id]-> albedo * s.intensite_lumiere * std::max(0., dot((s.position_lumiere-P).getNormalized(), N)) / (s.position_lumiere -P).getNorm2();
             }
-            /*
-            image[((H - i -1)*W +j) * 3 + 0] = std::min(255., std::max(0.,intensite_pixel[0])); // rouge 
-            image[((H - i -1)*W +j) * 3 + 1] = std::min(255., std::max(0.,intensite_pixel[1]));  // vert
-            image[((H - i -1)*W +j) * 3 + 2] = std::min(255., std::max(0.,intensite_pixel[2]));  // bleu
-            */
-            
+
             image[((H - i -1)*W +j) * 3 + 0] = std::min(255., std::max(0., std::pow(intensite_pixel[0], 1/2.2))); // rouge 
             image[((H - i -1)*W +j) * 3 + 1] = std::min(255., std::max(0., std::pow(intensite_pixel[1], 1/2.2)));  // vert
             image[((H - i -1)*W +j) * 3 + 2] = std::min(255., std::max(0., std::pow(intensite_pixel[2], 1/2.2)));  // bleu
@@ -389,54 +324,6 @@ void levelTwo(bool first = false){
 }
 
 
-
-
-/* définir le niveau 2 bis d'exécution du projet */
-/*
-void levelThree3(int H,int W,Scene &s,char* fileOut, double fov){
-    std::vector<unsigned char> image(W*H *3);
-    for (int i =0; i < H; i++) {
-        for (int j = 0; j < W; j++) {
-
-            Vector direction((j + camDirect[0] - W  / 2), i + camDirect[1] - H / 2, camDirect[0] -W  / (2 * tan(fov / 2)));
-            direction.normalize();
-
-            Ray r(Vector(0,0,80), direction);
-            Vector P, N;
-            int shape_id;
-            double t;
-            bool has_inter = s.intersection(r,P,N,shape_id, t);
-
-            Vector intensite_pixel(0,0,0);
-            if (has_inter) {
-              
-                Ray ray_light(P + 0.01 * N, (s.position_lumiere - P).getNormalized());
-                Vector P_light,N_light;
-
-                int sphere_id_light;
-                double t_light;
-                bool has_inter_light = s.intersection(ray_light, P_light, N_light, sphere_id_light, t_light);
-                double d_light2 = (s.position_lumiere - P ).getNorm2();
-                if (has_inter_light && t_light * t_light < d_light2){
-                    intensite_pixel = Vector(0,0,0);
-                }
-                else{
-                    intensite_pixel = s.shapes[shape_id]-> albedo * s.intensite_lumiere * std::max(0., dot((s.position_lumiere-P).getNormalized(), N)) /d_light2;
-                }
-            }
-
-            
-
-            image[((H - i -1)*W +j) * 3 + 0] = std::min(255., std::max(0., std::pow(intensite_pixel[0], 1/2.2))); // rouge 
-            image[((H - i -1)*W +j) * 3 + 1] = std::min(255., std::max(0., std::pow(intensite_pixel[1], 1/2.2)));  // vert
-            image[((H - i -1)*W +j) * 3 + 2] = std::min(255., std::max(0., std::pow(intensite_pixel[2], 1/2.2)));  // bleu
-        }
-    }
-
-    save_img_ppm(fileOut , &image[0]);
-}
-*/
-
 /* définir le niveau 3 d'exécution du projet */
 
 void levelThree(int rien  = 0){
@@ -447,8 +334,6 @@ void levelThree(int rien  = 0){
       cout << "k: " << k <<endl;
         for (int i =0; i < H; i++) {
             for (int j = 0; j < W; j++) {
-               // Vector color(image[((H - i -1)*W +j) * 3 + 0],image[((H - i -1)*W +j) * 3 + 1],image[((H - i -1)*W +j) * 3 + 2]);
-
                 Vector direction((j + camDirect[0] - W  / 2), i + camDirect[1] - H / 2, camDirect[0] -W  / (2 * tan(fov / 2)));
                 direction.normalize();
 
@@ -478,10 +363,8 @@ void levelThree(int rien  = 0){
                 image2[((H - i -1)*W +j) * 3 + 1] = data[(i*W +j) * 3 + 1];
                 image2[((H - i -1)*W +j) * 3 + 2] = data[(i*W +j) * 3 + 2];
             }
-        }
-        
-    }
-    
+        }       
+    }  
 }
 
 
@@ -579,7 +462,6 @@ void vClavier(unsigned char key, int x, int y){
         } else{
             levelTwo();
         }
-        
         glutPostRedisplay();
     }
 }
@@ -600,11 +482,8 @@ int main(int argc, char* argv[]){
     }    
 
     
-    parseFile(fileIn, s);
-    cout << "nbforme " << s.shapes.size() << endl;
-   
-
-   
+    if(! parseFile(fileIn, s)) return -1;
+    cout << "nombre de forme(s): " << s.shapes.size() << endl;
 
     switch (level)
     {
