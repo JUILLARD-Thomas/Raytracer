@@ -293,7 +293,7 @@ Vector getColorReflet(const Ray &r, Scene &s, int nb_rebonds){
     }
     return intensite_pixel;    
 }
-
+yes
 */
 
 void initData(){
