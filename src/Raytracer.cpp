@@ -34,8 +34,8 @@ double fov = 60 * M_PI / 180;
 std::vector<unsigned int> image(W*H *3);
 
 Scene s;
-Vector camPosition;
-Vector camDirect;
+Vector camPosition(0,0,80);
+Vector camDirect(0,0,0);
 bool fileOutb = false;
 
 
@@ -44,7 +44,6 @@ unsigned char data[1024*1024*3];
  /* l'image dans la fenêtre openGL */ 
 void displayMe()
 {
-    cout << "go disPLAYYYYYY" <<endl;
     glClearColor( 0, 0, 0, 1 );
     glClear(GL_COLOR_BUFFER_BIT);
 
