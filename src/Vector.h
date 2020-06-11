@@ -123,7 +123,7 @@ class Sphere : public Shape {
 
 class Triangle : public Shape {
     public: 
-    Triangle(const Vector& A, const Vector& B, const Vector& C, bool isMirror, bool isTransp , const Vector &couleur) : A(A), B(B), C(C), Shape(couleur, false, isMirror){};
+    Triangle(const Vector& A, const Vector& B, const Vector& C, bool isMirror, bool isTransp , const Vector &couleur) : A(A), B(B), C(C), Shape(couleur, isTransp, isMirror){};
 
     bool intersection(const Ray d , Vector& P, Vector& N, double &t) {
         N = cross(B- A, C- A).getNormalized();
@@ -169,7 +169,7 @@ class Triangle : public Shape {
 
 class Rectangle : public Shape {
     public:
-    Rectangle(const Vector& A, const Vector& B, const Vector& C, const Vector& D, bool isMirror, bool isTransp, const Vector &couleur): A(A), B(B), C(C), D(D), Shape(couleur, false, isMirror) {
+    Rectangle(const Vector& A, const Vector& B, const Vector& C, const Vector& D, bool isMirror, bool isTransp, const Vector &couleur): A(A), B(B), C(C), D(D), Shape(couleur, isTransp, isMirror) {
 
     };
     
@@ -202,14 +202,13 @@ class Rectangle : public Shape {
 
 class Cylindre : public Shape {
     public:
-    Cylindre(const Vector& A, double r, const Vector& V, double h, bool isMirror, bool isTransp, const Vector &couleur): C(A), r(r), V(V), h(h), Shape(couleur, false, isMirror) {
+    Cylindre(const Vector& A, double r, const Vector& V, double h, bool isMirror, bool isTransp, const Vector &couleur): C(A), r(r), V(V), h(h), Shape(couleur, isTransp, isMirror) {
         Vector v(V[0], V[1], V[2]);
         B = h * v.getNormalized() + A; 
         V2 = Vector(-V[0],-V[1],-V[2]);
     };
     
     bool intersection(const Ray d , Vector& P, Vector& N, double &t) {
-        //std::cout << "TEST" << std::endl;
         Vector L= d.origin - C;
         Vector w = cross(d.direction, V);
         double w2 = w.getNorm2();
@@ -232,8 +231,6 @@ class Cylindre : public Shape {
         Vector F = cross(wn, V);
         Vector Fn = F.getNormalized();
         double s = sqrt(r*r - R*R)/ abs(dot(d.direction, Fn));
-      //  Vector P1 = d.origin + dot(t - s, d.direction);
-     //   Vector P2 = d.origin + dot(t + s, d.direction);
          Vector P1 = d.origin + (t - s) * d.direction;
         Vector P2 = d.origin + (t + s) * d.direction;
         if(dot(L,V) < r){
@@ -241,19 +238,13 @@ class Cylindre : public Shape {
         } else{
             P = P1;
         }
-       // P = ((P1 - d.origin).getNorm2() < (P2 - d.origin).getNorm2()) ? P1 : P2;
-      //  std::cout << "intersection " << t <<  std::endl;
-   //   P[2] = -P[2]; 
+
         Vector CP = P - C;
         double CQ = dot(CP, V);
         Vector QP = CP - CQ * V;
         N = QP/r;
-     //   N[2] = -N[2];
         Vector MYP1 = P - C;
         Vector MYP2 = P - B;
-       // std::cout << "\nB " << B[0] << " " << B[1] << " " << B[2] <<  std::endl;
-       // std::cout << "Vect BC " << MYP2[0] << " " << MYP2[1] << " " << MYP2[2] <<  std::endl;
-       // std::cout << "V2 " << V2[0] << " " << V2[1] << " " << V2[2] <<  std::endl;
         
         if(dot(MYP1,V) >= 0 && dot(MYP2, V2) >= 0){
             return true;
