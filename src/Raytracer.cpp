@@ -309,7 +309,6 @@ void levelTwo(bool first = false){
 
             Vector direction((j + camDirect[0] - W  / 2), i + camDirect[1] - H / 2, camDirect[0] -W  / (2 * tan(fov / 2)));
             direction.normalize();
-
             Ray r(camPosition, direction);
             Vector P, N;
             int shape_id;
