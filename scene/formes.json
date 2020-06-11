@@ -1,0 +1,50 @@
+{
+    "spheres": [{
+        "axeX": -40,
+        "axeY": 40,
+        "axeZ": -70,
+        "rayon": 30,
+        "couleur": [1, 0, 0],
+        "mirror": false,
+        "transp": false
+    }],
+
+    "rectangles": [
+        {
+            "A": [10, 20, 0],
+            "B": [20, 10, 0],
+            "C": [10, 30, 0],
+            "D": [20, 30, 0],
+            "couleur": [0, 1, 0]
+        }],
+
+
+    "triangles": [{
+        "x": [40, -50, -50],
+        "y": [40, -10, -50],
+        "z": [10, -20, -50],
+        "couleur": [1, 0, 1]
+        }],
+
+    "cylindres": [{
+        "pointA": [-22,-45,-20],
+        "rayon": 10,
+        "V": [0,1,0],
+        "hauteur": 40, 
+        "couleur": [0,1,1],
+        "transp": false,
+        "mirror": true
+
+    }],
+
+    "lumiere": {
+        "intensite": 500000000,
+        "x": 15,
+        "y": 70,
+        "z": 30
+    },
+     "camera": {
+         "position" : [0,0,80],
+         "direction" : [0,0,0]
+     }
+}

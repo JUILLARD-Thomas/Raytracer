@@ -21,6 +21,8 @@ fstream
 -
 iostream
 -
+random
+-
 string.h
 -
 stdio.h
